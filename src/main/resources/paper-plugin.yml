@@ -1,0 +1,17 @@
+name: KitsunaiKit
+version: ${version}
+main: cc.kitsunai.kit.KitsunaiKit
+api-version: '1.21'
+authors: [ MoYuOwO ]
+description: KitsunaiKit
+dependencies:
+  bootstrap:
+    "xingchen.PlayerInfo":
+      load: BEFORE
+      required: true
+      join-classpath: true
+  server:
+    "xingchen.PlayerInfo":
+      load: BEFORE
+      required: true
+      join-classpath: true
