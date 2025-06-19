@@ -45,8 +45,7 @@ public final class KitDataBase {
                 "CREATE TABLE IF NOT EXISTS %s ("
                         + "uuid TEXT PRIMARY KEY, "
                         + "redeem_count INTEGER NOT NULL DEFAULT 0, "
-                        + "last_redeem TIMESTAMP, "
-                        + "FOREIGN KEY(uuid) REFERENCES players(uuid))",
+                        + "last_redeem TIMESTAMP)",
                 giftId
         );
 
@@ -112,7 +111,7 @@ public final class KitDataBase {
             return rs.next() ? rs.getInt("redeem_count") : 0;
         } catch (SQLException e) {
             handleSQLException(e);
-            return 0;
+            return -1;
         }
     }
 

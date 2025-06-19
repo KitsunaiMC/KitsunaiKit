@@ -23,11 +23,13 @@ public final class KitManager implements KitRegistrar {
 
     public void registerKit(@NotNull Kit kit) {
         kits.put(kit.getCdKey(), kit);
+        kitDataBase.createGiftTable(kit.getDataBaseName());
     }
 
     public void newComerKit(Player player) {
         for (Map.Entry<String, Kit> entry : kits.entrySet()) {
-            if (entry.getValue().isFirstJoin()) {
+            int count = kitDataBase.getRedemptionCount(entry.getValue().getDataBaseName(), player.getUniqueId());
+            if (entry.getValue().isFirstJoin() && count == 0) {
                 sendKit(player, entry.getValue());
             }
         }
@@ -49,14 +51,12 @@ public final class KitManager implements KitRegistrar {
     }
 
     private void sendKit(Player player, Kit kit) {
-        Set<String> dependencies = kit.getDependencies();
+        Set<String> dependencies = new HashSet<>(kit.getDependencies());
         for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
-            if (dependencies.contains(plugin.getName())) {
-                dependencies.remove(player.getName());
-            }
+            dependencies.remove(plugin.getName());
         }
         if (!dependencies.isEmpty()) {
-            KitsunaiKit.getInstance().getLogger().warning("礼包 " + kit.getSimpleName() + "  的依赖插件：" + dependencies + " 未加载");
+            KitsunaiKit.getInstance().getLogger().warning("礼包 " + kit.getSimpleName() + " 的依赖插件：" + dependencies + " 未加载");
             return;
         }
         Collection<ItemStack> itemStacks = new ArrayList<>();

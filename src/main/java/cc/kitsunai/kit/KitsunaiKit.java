@@ -12,16 +12,11 @@ import xingchen.xingchenPlayerInfo.api.PlayerInfoAPI;
 
 public final class KitsunaiKit extends JavaPlugin implements Listener {
 
-    private static PlayerInfoAPI playerInfoAPI;
     private static KitsunaiKit instance;
     private static KitManager kitManager;
 
     public static KitsunaiKit getInstance() {
         return instance;
-    }
-
-    public static PlayerInfoAPI getPlayerInfoAPI() {
-        return playerInfoAPI;
     }
 
     public KitsunaiKit() {
@@ -32,7 +27,6 @@ public final class KitsunaiKit extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         if (!getDataFolder().exists()) getDataFolder().mkdirs();
-        playerInfoAPI = Bukkit.getServicesManager().load(PlayerInfoAPI.class);
         kitManager = new KitManager();
         Bukkit.getPluginManager().registerEvents(this, this);
         Bukkit.getServicesManager().register(
@@ -46,9 +40,7 @@ public final class KitsunaiKit extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (playerInfoAPI.isNewComer(event.getPlayer())) {
-            kitManager.newComerKit(event.getPlayer());
-        }
+        kitManager.newComerKit(event.getPlayer());
     }
 
     @Override
