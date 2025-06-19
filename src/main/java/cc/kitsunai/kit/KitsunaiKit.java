@@ -1,12 +1,13 @@
 package cc.kitsunai.kit;
 
+import cc.kitsunai.kit.api.KitRegistrar;
+import cc.kitsunai.kit.kits.NewComers;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import xingchen.xingchenPlayerInfo.api.PlayerInfoAPI;
 
 public final class KitsunaiKit extends JavaPlugin implements Listener {
@@ -34,7 +35,13 @@ public final class KitsunaiKit extends JavaPlugin implements Listener {
         playerInfoAPI = Bukkit.getServicesManager().load(PlayerInfoAPI.class);
         kitManager = new KitManager();
         Bukkit.getPluginManager().registerEvents(this, this);
-        kitManager.loadAllKits();
+        Bukkit.getServicesManager().register(
+                KitRegistrar.class,
+                kitManager,
+                this,
+                ServicePriority.Normal
+        );
+        kitManager.registerKit(new NewComers());
     }
 
     @EventHandler
