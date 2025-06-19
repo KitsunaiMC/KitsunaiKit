@@ -30,6 +30,7 @@ public final class KitsunaiKit extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        if (!getDataFolder().exists()) getDataFolder().mkdirs();
         playerInfoAPI = Bukkit.getServicesManager().load(PlayerInfoAPI.class);
         kitManager = new KitManager();
         Bukkit.getPluginManager().registerEvents(this, this);
