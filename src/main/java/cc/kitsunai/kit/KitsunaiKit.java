@@ -2,6 +2,7 @@ package cc.kitsunai.kit;
 
 import cc.kitsunai.kit.api.KitRegistrar;
 import cc.kitsunai.kit.kits.NewComers;
+import cc.kitsunai.kit.kits.NewComersMoney;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,6 +37,7 @@ public final class KitsunaiKit extends JavaPlugin implements Listener {
                 ServicePriority.Normal
         );
         kitManager.registerKit(new NewComers());
+        kitManager.registerKit(new NewComersMoney());
     }
 
     @EventHandler
