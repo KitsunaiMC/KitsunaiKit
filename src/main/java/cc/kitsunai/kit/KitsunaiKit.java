@@ -47,6 +47,6 @@ public final class KitsunaiKit extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        kitManager.close();
     }
 }

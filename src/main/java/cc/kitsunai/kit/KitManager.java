@@ -69,4 +69,8 @@ public final class KitManager implements KitRegistrar {
         kitDataBase.recordRedemption(kit.getDataBaseName(), player.getUniqueId());
         kit.afterCollect(player);
     }
+
+    public void close() {
+        kitDataBase.close();
+    }
 }

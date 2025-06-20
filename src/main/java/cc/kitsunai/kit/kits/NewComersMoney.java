@@ -56,6 +56,6 @@ public class NewComersMoney implements Kit {
 
     @Override
     public @NotNull Set<String> getDependencies() {
-        return Set.of("Xconomy");
+        return Set.of("XConomy");
     }
 }
