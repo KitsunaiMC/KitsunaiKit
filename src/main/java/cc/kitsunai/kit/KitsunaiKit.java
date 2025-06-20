@@ -3,6 +3,9 @@ package cc.kitsunai.kit;
 import cc.kitsunai.kit.api.KitRegistrar;
 import cc.kitsunai.kit.kits.NewComers;
 import cc.kitsunai.kit.kits.NewComersMoney;
+import cc.kitsunai.kit.kits.TestCdKey;
+import io.papermc.paper.plugin.lifecycle.event.LifecycleEvent;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +17,7 @@ import xingchen.xingchenPlayerInfo.api.PlayerInfoAPI;
 public final class KitsunaiKit extends JavaPlugin implements Listener {
 
     private static KitsunaiKit instance;
-    private static KitManager kitManager;
+    public static KitManager kitManager;
 
     public static KitsunaiKit getInstance() {
         return instance;
@@ -38,6 +41,8 @@ public final class KitsunaiKit extends JavaPlugin implements Listener {
         );
         kitManager.registerKit(new NewComers());
         kitManager.registerKit(new NewComersMoney());
+        kitManager.registerKit(new TestCdKey());
+        getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> commands.registrar().register(KitCommand.buildCommand));
     }
 
     @EventHandler
