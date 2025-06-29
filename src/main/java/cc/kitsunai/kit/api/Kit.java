@@ -1,7 +1,6 @@
 package cc.kitsunai.kit.api;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -9,15 +8,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
 public interface Kit {
-    @NotNull String getDataBaseName();
+    @NotNull String getId();
 
-    @NotNull default Component getDisplayName() {
-        return MiniMessage.miniMessage().deserialize(getSimpleName());
-    }
+    @NotNull Component getDisplayName();
 
-    @NotNull String getSimpleName();
-
-    @NotNull String getCdKey();
+    boolean match(@NotNull String cdkey);
 
     @NotNull ItemStack[] getItems();
 
@@ -25,7 +20,11 @@ public interface Kit {
 
     int getMaximumCollect();
 
-    void afterCollect(Player player);
+    void afterCollect(@NotNull Player player);
 
     @NotNull Set<String> getDependencies();
+
+    @NotNull Set<String> generateCdkey(int count);
+
+    @NotNull Set<String> getAllCdkeys();
 }

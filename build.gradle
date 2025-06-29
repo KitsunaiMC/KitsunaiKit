@@ -43,10 +43,14 @@ publishing {
 }
 
 dependencies {
-    compileOnly 'com.github.KitsunaiMC:xingchen.playerInfo:v1.0:api'
+    compileOnly 'com.github.KitsunaiMC:PlayerInfo:1.0:api'
     compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
     implementation 'org.xerial:sqlite-jdbc:3.44.1.0'
     implementation 'com.zaxxer:HikariCP:5.1.0'
+}
+
+build {
+    dependsOn shadowJar
 }
 
 shadowJar {

@@ -1,0 +1,8 @@
+name: <red><b>example_join_kit</b></red>
+id: example_join_kit
+give_when_first_join: true
+item:
+  - H4sIAAAAAAAA/02NS0oDQRRFrwahKSei6AJqnAWEHoYswFFm0rxUV5pHV9WTqlegiGtw4mfkEgTBkQtKwF3Y4MBM7+GeY4AZTlektPa5sCTg7KbBMfe4jJy8y7TVdshUSrcJ4sYZTpzUpACODIyTeCvJJy3m8OBqUYldP3kNzq/rJrBb1nFkXVOovjS4Sl4oKxdKbfYDF8333VQ93CMN7P6yQIOLfz+rj12i6LF4sE6CZNvaQUJv55aVpppttxSKn1v1dzrBn4/n/dfL7vNp//q9e3+zj8Av+8PKt/wAAAA=
+action:
+  - "player_command: I am Player %Player%"
+  - "console_command: I am console %player%"
