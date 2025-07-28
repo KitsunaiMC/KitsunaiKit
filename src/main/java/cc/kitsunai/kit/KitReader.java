@@ -1,6 +1,8 @@
 package cc.kitsunai.kit;
 
 import cc.kitsunai.kit.api.KitRegistrar;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -73,7 +75,7 @@ public final class KitReader {
             if (_isFirstJoin != null) isFirstJoin = Boolean.parseBoolean(_isFirstJoin);
             else maxCollect = Integer.parseInt(_maxCollect);
             final List<String> _actions = configuration.getStringList("action");
-            final Map<String, String> actions = new HashMap<>();
+            final Multimap<String, String> actions = ArrayListMultimap.create();
             for (String action : _actions) {
                 String[] args = action.split(":");
                 if (args.length != 2) {
@@ -86,8 +88,7 @@ public final class KitReader {
                 actions.put(args[0], args[1]);
             }
             final Consumer<Player> consumer = player -> {
-                for (Map.Entry<String, String> action : actions.entrySet()) {
-                    String type = action.getKey(), command = action.getValue();
+                actions.forEach((type, command) -> {
                     if (command.toLowerCase().contains("%player%")) command = command.toLowerCase().replace("%player%", player.getName());
                     switch (type) {
                         case "player_command":
@@ -96,9 +97,10 @@ public final class KitReader {
                         case "console_command":
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
                             break;
-                        case null, default: logger.severe("error on reading yml file " + ymlFile.getName() + ", You should provide correct actions!");
+                        case null, default:
+                            logger.severe("error on reading yml file " + ymlFile.getName() + ", You should provide correct actions!");
                     }
-                }
+                });
             };
             final Set<String> dependencies = new HashSet<>(_dependencies);
             final List<ItemStack> itemStacks = new ArrayList<>();
